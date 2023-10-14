@@ -6,6 +6,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { collapseMenu, listItemBlue, listItemDarkBlue, listItemSelected } from '../Sidebar/styles.modules';
+import DialogAddSold from '../DialogAddSold/DialogAddSold';
 
 interface menusProps {
   text: string,
@@ -17,13 +18,26 @@ interface menusProps {
 const ListItemMenu = (props : menusProps) => {
   const { text, href, icon: Icon , submenus = []} = props;
   const [open, setOpen] = React.useState(false);
+  const [openAddSoldDialog, setOpenAddSoldDialog] = React.useState(false);
   const handleClick = () => {
     setOpen(!open);
+  }
+
+  const handleClickAddSold = () => {
+    setOpenAddSoldDialog(!openAddSoldDialog);
   }
   return (
     <>
       <ListItem key={href} disablePadding sx={submenus.length === 0 ? listItemBlue : (open ? listItemSelected : listItemDarkBlue)}>
-        <ListItemButton component={Link} href={href}  onClick={() => {if(submenus.length > 0) handleClick()} } sx={{height: '66px'}}>
+        <ListItemButton
+          component={Link}
+          href={href}
+          onClick={() => {
+            if(submenus.length > 0) handleClick()
+            if(submenus.length === 0 && text === 'Ajouter') handleClickAddSold()
+          }}
+          sx={{height: '66px'}}
+        >
           <ListItemIcon sx={ { color: open && submenus.length > 0 ? '#084693' : '#fff', minWidth: '40px' }}>
             <Icon />
           </ListItemIcon>
@@ -48,6 +62,7 @@ const ListItemMenu = (props : menusProps) => {
           </Collapse>
         )
       }
+      <DialogAddSold visible={openAddSoldDialog} setVisible={handleClickAddSold} />
     </>
   )
 }

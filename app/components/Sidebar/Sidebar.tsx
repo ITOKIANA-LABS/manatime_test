@@ -71,9 +71,9 @@ function Sidebar() {
       <Divider />
       <List sx={drawerList}>
         {LINKS.map(({ text, href, icon: Icon , submenus = []}) => (
-          <>
+          <React.Fragment key={text}>
             <ListItemMenu text={text} href={href} icon={Icon} submenus={submenus}/>
-          </>
+          </React.Fragment>
         ))}
       </List>
       <Box sx={{
