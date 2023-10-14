@@ -30,8 +30,6 @@ const ListItemMenu = (props : menusProps) => {
     <>
       <ListItem key={href} disablePadding sx={submenus.length === 0 ? listItemBlue : (open ? listItemSelected : listItemDarkBlue)}>
         <ListItemButton
-          component={Link}
-          href={href}
           onClick={() => {
             if(submenus.length > 0) handleClick()
             if(submenus.length === 0 && text === 'Ajouter') handleClickAddSold()
@@ -54,7 +52,7 @@ const ListItemMenu = (props : menusProps) => {
           <Collapse in={open} timeout="auto" unmountOnExit sx={collapseMenu}>
             <List component="div" disablePadding>
               {submenus.map(submenu => (
-                <ListItemButton key={submenu.href} sx={{ pl: 4 }} component={Link} href={submenu.href} >
+                <ListItemButton key={submenu.href} sx={{ pl: 4 }} >
                   <ListItemText primary={submenu.text} primaryTypographyProps={{fontSize: '15px', fontWeight: '500', textAlign: 'right'}} />
                 </ListItemButton>
               ))}
